@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "AA2_EV01_JDBC/EvidenciaJdbc/lib/postgresql-42.7.8.jar",
+        "AA2_EV01_JDBC/EvidenciaJdbc/lib/mysql-connector-j-9.5.0.jar"
+    ]
+}
