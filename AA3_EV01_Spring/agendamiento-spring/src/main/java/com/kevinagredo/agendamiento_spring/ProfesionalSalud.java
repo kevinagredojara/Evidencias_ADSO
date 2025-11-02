@@ -1,11 +1,10 @@
 /* * Archivo: AA3_EV01_Spring/agendamiento-spring/src/main/java/com/kevinagredo/agendamiento_spring/ProfesionalSalud.java
- * (Actualizado con Lombok)
+ * (Versión final y limpia)
  */
 package com.kevinagredo.agendamiento_spring;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import java.util.Set;
 
 // Anotaciones de Lombok
 import lombok.Data;
@@ -14,11 +13,9 @@ import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "profesionales_salud")
-// --- Anotaciones de Lombok ---
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-// -----------------------------
 public class ProfesionalSalud {
 
     @Id
@@ -26,20 +23,18 @@ public class ProfesionalSalud {
     private Long id;
 
     @NotBlank
-    private String nombres; [cite_start]// Asumido de User [cite: 352]
+    private String nombres;
     
     @NotBlank
-    private String apellidos; [cite_start]// Asumido de User [cite: 353]
+    private String apellidos;
 
     @NotBlank
-    [cite_start]@Column(name = "numero_registro_prof", nullable = false, unique = true) // [cite: 360]
+    @Column(name = "numero_registro_prof", nullable = false, unique = true)
     private String registroProfesional;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "especialidad_id", nullable = false)
     private Especialidad especialidad;
 
-    // Omitimos la relación por simplicidad
-    // @OneToMany(mappedBy = "profesional")
-    // private Set<Cita> citasAtendidas;
+    // Nota: Omitimos la relación @OneToMany
 }

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
  * * Esto cumple con el Indicador 1 (Framework) y 2 (Data Storage).
  */
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
-    // <Paciente, Integer> significa: "Maneja objetos Paciente, donde la PK es un Integer"
+public interface PacienteRepository extends JpaRepository<Paciente, Long> {
+    // <Paciente, Long> significa: "Maneja objetos Paciente, donde la PK es un Long"
 
     // El cuerpo está vacío a propósito. Spring hace todo el trabajo.
 }
