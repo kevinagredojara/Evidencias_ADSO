@@ -1,0 +1,19 @@
+/* * Archivo: AA4_EV03_React_Frontend/src/components/BotonAccion.module.css
+ * Descripcion: Estilos para el BotonAccion.
+ */
+
+.boton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.boton:hover {
+  background-color: #0056b3;
+}

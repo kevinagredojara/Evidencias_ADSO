@@ -1,0 +1,35 @@
+/* * Archivo: AA4_EV03_React_Frontend/src/index.css
+ * Descripcion: Estilos globales y reseteo de CSS para la aplicación.
+ */
+
+/* 1. Usar un box-sizing más intuitivo. */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Eliminar márgenes por defecto */
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* 3. Configuración del body */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f4f7f6; /* Un fondo gris claro para la app */
+  color: #333;
+}
+
+/* 4. Hacer que las imágenes sean responsivas por defecto */
+img, picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* 5. Eliminar estilos de lista */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
