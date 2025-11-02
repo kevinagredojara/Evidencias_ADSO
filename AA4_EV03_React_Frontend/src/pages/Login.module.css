@@ -1,0 +1,77 @@
+/* * Archivo: AA4_EV03_React_Frontend/src/pages/Login.module.css
+ * Descripcion: Estilos para la página de Login [cite: 608-616].
+ */
+
+.loginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f4f7f6;
+}
+
+.loginForm {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.inputGroup {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.options {
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+
+.forgotPassword {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+.footerNote {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: #777;
+  line-height: 1.4;
+}

@@ -1,0 +1,29 @@
+/* * Archivo: AA4_EV03_React_Frontend/src/pages/ConsultaCitas.module.css
+ * Descripcion: Estilos para la página de consulta de citas.
+ */
+
+.pageContainer {
+  width: 100%;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.filtersContainer {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.resultsTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 1rem;
+}

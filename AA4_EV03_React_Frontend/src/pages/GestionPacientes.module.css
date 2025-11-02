@@ -1,0 +1,20 @@
+/* * Archivo: AA4_EV03_React_Frontend/src/pages/GestionPacientes.module.css
+ * Descripcion: Estilos para la página de gestión de pacientes.
+ */
+
+.pageContainer {
+  width: 100%;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.pageSubtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}

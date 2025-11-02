@@ -1,15 +1,14 @@
 /* * Archivo: AA4_EV03_React_Frontend/src/App.jsx
- * Descripcion: Componente raíz de la aplicación. Por ahora solo muestra un saludo.
- * Más adelante, aquí se renderizará el enrutador.
+ * Descripcion: Componente raíz que renderiza el manejador de rutas.
  */
 
+// 1. Importar el enrutador que creamos
+import AppRouter from './navigation/AppRouter.jsx';
+
 function App() {
-  // Por ahora, solo retornamos un saludo para verificar que funciona.
+  // 2. Renderizar el enrutador
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
-      <h1>Sistema de Agendamiento de Citas</h1>
-      <p>Frontend (React) para la AA4_EV03.</p>
-    </div>
+    <AppRouter />
   );
 }
 

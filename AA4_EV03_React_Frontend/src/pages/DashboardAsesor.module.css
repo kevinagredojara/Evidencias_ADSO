@@ -1,0 +1,64 @@
+/* * Archivo: AA4_EV03_React_Frontend/src/pages/DashboardAsesor.module.css
+ * Descripcion: Estilos para el dashboard del asesor [cite: 617-627].
+ */
+
+.dashboardContainer {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  height: 200px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menuItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* El .menuIcon simula el cuadro gris del mockup [cite: 621] */
+.menuIcon {
+  width: 80px;
+  height: 80px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  
+  /* En un proyecto real, esto sería un <img> o un icono SVG */
+}
+
+.menuText {
+  line-height: 1.4;
+}

@@ -1,0 +1,57 @@
+/* * Archivo: AA4_EV03_React_Frontend/src/components/Layout.module.css
+ * Descripcion: Estilos para el Layout principal.
+ */
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logoLink {
+  text-decoration: none;
+  color: #333;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #007bff; /* Color azul del logo */
+}
+
+.userNav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.userName {
+  font-weight: 600;
+  color: #555;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f4f7f6;
+}

@@ -1,9 +1,8 @@
 /* * Archivo: AA4_EV03_React_Frontend/src/data/mockData.js
- * Descripcion: Datos simulados (mock data) para el desarrollo del frontend
- * sin necesidad de conectar aún con el backend de Java.
+ * Descripcion: Datos simulados (mock data) actualizados.
  */
 
-[cite_start]// Datos simulados basados en el mockup [cite: 768-795]
+// Datos simulados basados en el mockup [cite: 768-795]
 export const mockCitas = [
   {
     id: 1,
@@ -22,6 +21,24 @@ export const mockCitas = [
     profesional: 'Natalia Ackermann',
     especialidad: 'Medicina General',
     estado: 'Programada'
+  },
+  {
+    id: 3,
+    fecha: '19/05/2025',
+    horaInicio: '09:00 A.M',
+    paciente: 'Carlos Sanchez',
+    profesional: 'Natalia Ackermann',
+    especialidad: 'Medicina General',
+    estado: 'Realizada'
+  },
+  {
+    id: 4,
+    fecha: '20/05/2025',
+    horaInicio: '10:00 A.M',
+    paciente: 'Ana Gomez',
+    profesional: 'Luis Martinez',
+    especialidad: 'Odontología',
+    estado: 'Cancelada'
   },
 ];
 
