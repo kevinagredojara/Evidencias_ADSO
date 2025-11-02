@@ -1,76 +1,86 @@
-package com.kevinagredo.agendamiento_spring; // Aseguramos el paquete correcto
-
-// IMPORTS NUEVOS (AÑADIDOS PARA AA3-EV02)
-import jakarta.validation.Valid; // Habilita la validación
-import org.springframework.validation.BindingResult; // Recoge los errores
-
-// Imports existentes
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-/**
- * Esta clase es el CONTROLADOR (reemplaza al Servlet).
- * Maneja las peticiones del navegador y las conecta con las Vistas.
- * (Indicador 3 y 4: Estándar de codificación y comentarios)
+/* * Archivo: AA3_EV01_Spring/agendamiento-spring/src/main/java/com/kevinagredo/agendamiento_spring/PacienteController.java
+ * (Totalmente modificado para ser @RestController)
  */
-@Controller
+package com.kevinagredo.agendamiento_spring;
+
+import jakarta.validation.Valid; // Para activar las validaciones
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/pacientes") // Define la URL base para este controlador
 public class PacienteController {
 
-    // Inyección de Dependencias: Spring nos "inyecta" el Repositorio
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    /**
-     * Manejador GET (reemplaza a doGet)
-     * Se ejecuta cuando alguien visita la página principal ("/")
-     * Su trabajo es mostrar la página y la lista de pacientes existentes.
+    /*
+     * HU-ASE-003: Registrar Nuevo Paciente [cite: 235]
+     * Endpoint: POST /api/pacientes
+     * Cuerpo (Body): JSON con datos del paciente
      */
-    @GetMapping("/")
-    public String verPaginaDeInicio(Model model) {
-        
-        // 1. Obtenemos todos los pacientes de la BD
-        model.addAttribute("listaPacientes", pacienteRepository.findAll());
-        
-        // 2. Añadimos un objeto Paciente vacío para que el formulario lo llene
-        model.addAttribute("paciente", new Paciente());
-        
-        // 3. Renderiza el archivo "gestionPacientes.html"
-        return "gestionPacientes";
+    @PostMapping
+    public ResponseEntity<Paciente> crearPaciente(@Valid @RequestBody Paciente paciente) {
+        // @Valid activa las validaciones que pusimos en la entidad
+        Paciente nuevoPaciente = pacienteRepository.save(paciente);
+        return new ResponseEntity<>(nuevoPaciente, HttpStatus.CREATED); // Retorna 201 Created
     }
 
-    /**
-     * Manejador POST (reemplaza a doPost)
-     * MODIFICADO PARA VALIDAR (REQUISITO AA3-EV02)
-     * Se ejecuta cuando el formulario HTML envía datos a "/registrar"
+    /*
+     * Servicio para listar todos los pacientes (Útil para HU-ASE-004)
+     * Endpoint: GET /api/pacientes
      */
-    @PostMapping("/registrar")
-    public String registrarNuevoPaciente(
-            @Valid @ModelAttribute("paciente") Paciente paciente, // 1. @Valid activa la validación
-            BindingResult bindingResult, // 2. Objeto que recibe los errores (si los hay)
-            Model model) { // 3. Modelo para devolver datos si hay error
-        
-        // 4. Verificamos si hubo errores de validación (definidos en Paciente.java)
-        if (bindingResult.hasErrors()) {
-            // SI HAY ERRORES:
-            // No guardamos nada.
-            // Volvemos a cargar la página, pero Thymeleaf ahora tendrá los errores.
-            
-            // Volvemos a cargar la lista de pacientes (necesaria para la tabla)
-            model.addAttribute("listaPacientes", pacienteRepository.findAll());
-            
-            // Devolvemos la vista (NO redireccionamos, para poder mostrar los errores)
-            return "gestionPacientes";
-        }
+    @GetMapping
+    public List<Paciente> obtenerTodosLosPacientes() {
+        return pacienteRepository.findAll();
+    }
 
-        // 5. SI NO HAY ERRORES (el código original):
-        // Le decimos al repositorio que guarde el objeto Paciente en la BD
-        pacienteRepository.save(paciente);
-        
-        // Redireccionamos a la raíz ("/"). Esto ejecuta el método verPaginaDeInicio() de nuevo.
-        return "redirect:/";
+    /*
+     * Servicio para obtener un paciente por ID (Útil para HU-ASE-004)
+     * Endpoint: GET /api/pacientes/{id}
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Paciente> obtenerPacientePorId(@PathVariable Long id) {
+        return pacienteRepository.findById(id)
+                .map(paciente -> new ResponseEntity<>(paciente, HttpStatus.OK)) // Retorna 200 OK
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND)); // Retorna 404 Not Found
+    }
+
+    /*
+     * HU-ASE-004: Actualizar Datos de Paciente [cite: 235]
+     * Endpoint: PUT /api/pacientes/{id}
+     * Cuerpo (Body): JSON con datos actualizados
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Paciente> actualizarPaciente(@PathVariable Long id, @Valid @RequestBody Paciente detallesPaciente) {
+        return pacienteRepository.findById(id)
+                .map(paciente -> {
+                    // Actualiza los campos (esto se debe hacer en un Servicio en un proyecto real)
+                    paciente.setNombres(detallesPaciente.getNombres());
+                    paciente.setApellidos(detallesPaciente.getApellidos());
+                    paciente.setEmail(detallesPaciente.getEmail());
+                    paciente.setTelefonoContacto(detallesPaciente.getTelefonoContacto());
+                    // ... actualizar otros campos
+                    Paciente pacienteActualizado = pacienteRepository.save(paciente);
+                    return new ResponseEntity<>(pacienteActualizado, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /*
+     * Servicio para eliminar un paciente
+     * Endpoint: DELETE /api/pacientes/{id}
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> eliminarPaciente(@PathVariable Long id) {
+        if (!pacienteRepository.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        pacienteRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Retorna 204 No Content
     }
 }

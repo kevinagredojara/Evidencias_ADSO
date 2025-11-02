@@ -1,86 +1,71 @@
-package com.kevinagredo.agendamiento_spring; // Aseguramos el paquete correcto con guion bajo
-
-// Imports de Persistencia (JPA)
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-// IMPORTS NUEVOS (AÑADIDOS PARA AA3-EV02)
-// Estos imports habilitan las anotaciones de validación
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-
-/**
- * Esta clase es el MODELO (la Entidad).
- * Representa la tabla "pacientes_java" en la base de datos.
- * Basado en el DER y la HU-ASE-003.
- *
- * (Indicador 3 y 4: Estándar de codificación y comentarios)
+/* * Archivo: AA3_EV01_Spring/agendamiento-spring/src/main/java/com/kevinagredo/agendamiento_spring/Paciente.java
+ * (Versión completa con Lombok y validaciones)
  */
+package com.kevinagredo.agendamiento_spring;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Past;
+import java.time.LocalDate;
+
+// Anotaciones de Lombok
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 @Entity
-@Table(name = "pacientes_java")
+@Table(name = "pacientes")
+// --- Anotaciones de Lombok ---
+@Data // Genera todos los Getters, Setters, toString, equals, hashCode
+@NoArgsConstructor // Genera un constructor sin argumentos
+@AllArgsConstructor // Genera un constructor con todos los argumentos
+// -----------------------------
 public class Paciente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    // --- VALIDACIONES AÑADIDAS (REQUISITO AA3-EV02) ---
+    [cite_start]// Basado en el DER [cite: 327-334]
+    @NotBlank(message = "El tipo de documento es obligatorio")
+    @Size(min = 2, max = 10)
+    @Column(name = "tipo_documento", nullable = false)
+    private String tipoDocumento;
 
-    /**
-     * Validación: El campo no puede estar vacío (nulo o solo espacios).
-     * Validación: Debe tener entre 3 y 50 caracteres.
-     */
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(min = 3, max = 50, message = "El nombre debe tener entre 3 y 50 caracteres")
-    private String nombreCompleto;
-
-    /**
-     * Validación: El campo no puede estar vacío.
-     * Validación: Asegura que solo se ingresen números (usando una Expresión Regular).
-     * Validación: Debe tener entre 5 y 15 dígitos.
-     */
-    @NotBlank(message = "El documento no puede estar vacío")
-    @Pattern(regexp = "^[0-9]+$", message = "El documento solo debe contener números")
-    @Size(min = 5, max = 15, message = "El documento debe tener entre 5 y 15 dígitos")
+    [cite_start]// Basado en el DER [cite: 327-334]
+    @NotBlank(message = "El número de documento es obligatorio")
+    @Size(min = 5, max = 20)
+    @Column(name = "numero_documento", nullable = false, unique = true)
     private String numeroDocumento;
     
-    /**
-     * Validación: El campo no puede estar vacío.
-     * Validación: Debe tener entre 7 y 15 dígitos.
-     */
-    @NotBlank(message = "El teléfono no puede estar vacío")
-    @Size(min = 7, max = 15, message = "El teléfono debe tener entre 7 y 15 dígitos")
+    [cite_start]// Asumido de User (Django) [cite: 347-355]
+    @NotBlank(message = "El nombre es obligatorio")
+    @Column(nullable = false)
+    private String nombres;
+
+    [cite_start]// Asumido de User (Django) [cite: 347-355]
+    @NotBlank(message = "El apellido es obligatorio")
+    @Column(nullable = false)
+    private String apellidos;
+
+    [cite_start]// Basado en el DER [cite: 327-334]
+    @Past(message = "La fecha de nacimiento debe ser en el pasado")
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
+
+    [cite_start]// Basado en el DER [cite: 327-334]
+    @NotBlank(message = "El teléfono es obligatorio")
+    @Column(name = "telefono_contacto")
     private String telefonoContacto;
 
-    // --- Getters y Setters ---
-    // Spring los usa para leer y escribir los datos.
+    [cite_start]// Asumido de User (Django) [cite: 347-355]
+    @Email(message = "Debe ser un correo válido")
+    @NotBlank(message = "El email es obligatorio")
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
-    }
-    public String getTelefonoContacto() {
-        return telefonoContacto;
-    }
-    public void setTelefonoContacto(String telefonoContacto) {
-        this.telefonoContacto = telefonoContacto;
-    }
+    // Nota: Omitimos la relación @OneToMany a Citas por ahora
+    // para simplificar la salida JSON de la API.
 }
